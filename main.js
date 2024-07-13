@@ -11,7 +11,9 @@ let performData = function() {
         document.querySelector('.error-message').style.transition = "0.2s";
         document.querySelector('.error-message').style.opacity = 0;
         moveTable();
-        setTimeout(show, 1100);
+        if (isClicked) {
+            setTimeout(show, 1100);
+        }
     }
     else {
         document.querySelector('#error').style.height = "77px";
@@ -110,13 +112,21 @@ let moveTable = function() {
         document.getElementById("sex").value = "none";
         document.getElementById("drug").checked = false;
 
+        document.querySelector("#top1").style.opacity = 0;
+        document.querySelector("#bot1").style.opacity = 0;
+        document.querySelector("#top2").style.opacity = 0;
+        document.querySelector("#bot2").style.opacity = 0;
+        document.querySelector("#top3").style.opacity = 0;
+        document.querySelector("#bot3").style.opacity = 0;       
+
+        setTimeout(offOnResults(false), 1000);
+
         document.querySelector("#top1").innerHTML = "";
         document.querySelector("#bot1").innerHTML = "";
         document.querySelector("#top2").innerHTML = "";
         document.querySelector("#bot2").innerHTML = "";
         document.querySelector("#top3").innerHTML = "";
-        document.querySelector("#bot31").innerHTML = "";
-        document.querySelector("#bot32").innerHTML = "";
+        document.querySelector("#bot3").innerHTML = "";
 
         isClicked = false;
     }
@@ -180,6 +190,7 @@ let show = function() {
         }
     }
 
+
     document.querySelector("#top2").innerHTML = "Индекс массы тела: " + BMI;
     if (BMI <= 16) {
         document.querySelector("#bot2").innerHTML = "Выраженный дефицит массы тела";
@@ -203,29 +214,131 @@ let show = function() {
         document.querySelector("#bot2").innerHTML = "Ожирение III степени";
     }
     
+
     if (70 <= MOK_PERCENT && MOK_PERCENT <= 130) {
         if (bpm <= 60 && VI < -10) {
             document.querySelector("#top3").innerHTML = "Минутный объем крови в норме: " + MOK_PERCENT + "%";
-            document.querySelector("#bot31").innerHTML = "Ввиду высокого систолического давления и большого значения систолического объема рекомендуются следующие лекарственные препараты";
-            document.querySelector("#bot32").innerHTML = "Блокирование α(альфа) 1 рецепторов: Доксазозин\nАПФ ингибитор: Каптоприл\nАПФ рецептор: Лозартан";
+            document.querySelector("#bot3").innerHTML = "Ввиду высокого систолического давления и большого значения систолического объема рекомендуются следующие лекарственные препараты: Доксазозин(Блокирование альфа 1 рецепторов), Каптоприл(АПФ ингибитор), Лозартан(АПФ рецептор).";
         }
         else {
-
+            document.querySelector("#top3").innerHTML = "Минутный объем крови в норме: " + MOK_PERCENT + "%";
         }
     }
     else if (MOK_PERCENT > 130) {
+        document.querySelector("#top3").innerHTML = "Минутный объем крови: " + MOK_PERCENT + "%";
+        MOK_MESSAGE = "";
 
+        if (OtklOCK < -10) {
+            MOK_MESSAGE += "Неполная компенсаторная реакция на гиповолемию. ";
+        }
+        else if (-10 <= OtklOCK && OtklOCK <= 10) {
+            MOK_MESSAGE += "Компенсаторная реакция ССС. "
+        }
+        else if (10 < OtklOCK) {
+            MOK_MESSAGE += "Адаптационная реакция на предполагаемую физическую или психоэмоциональную нагрузку. Рекомендуется принятие решения о выборе лекарственных препаратов после рассмотрения конкретной ситуации.";
+        }
+
+        if (90 < dd) {
+            MOK_MESSAGE += "Рекомендуемые лекарственные препараты: Моксонидин(Сдерживание регуляции ЦНС), Изокет(Венозная вазодилатация), Блокирование альфа 1,2 рецепторов - Доксазозин, Лабетолол, Блокирование бета 1 рецепторов - Анаприлин, Бисапролол, Конкор.";
+        }
+        else {
+            MOK_MESSAGE += "Рекомендуемые лекарственные препараты: Моксонидин(Сдерживание регуляции ЦНС), Метопролол(Сдерживание ССС)";
+        }
+        document.querySelector("#bot3").innerHTML = MOK_MESSAGE;
     }
-    // if 70 <= MOK_PERCENT <= 130:
-    // if bpm <= 60 and VI < -10:
-    //     bot.send_message(message.chat.id, f'Минутный объем крови в норме: {round(MOK_PERCENT, 2)}%\n\n'
-    //                                       f'Ввиду высокого систолического давления и большого значения '
-    //                                       f'систолического объема рекомендуются лекарственные препараты:\n\n'
-    //                                       f'Блокирование α(альфа) 1 рецепторов:\nДоксазозин\n\n'
-    //                                       f'АПФ ингибитор:\nКаптоприл\n\n'
-    //                                       f'АПФ рецептор:\nЛозартан\n\n'
-    //                                       f'Предлагаемые рекомендации лекарственных препаратов требуют '
-    //                                       f'согласования со специалистом.')
-    // else:
-    //     bot.send_message(message.chat.id, f'Минутный объем крови в норме: {round(MOK_PERCENT, 2)}%')
+    else if (MOK_PERCENT < 70) {
+        document.querySelector("#top3").innerHTML = "Минутный объем крови: " + MOK_PERCENT + "%";
+        MOK_MESSAGE = "";
+        if (OtklOCK < -10) {
+            MOK_MESSAGE += "Тенденция к централизации кровообращения. ";
+        }
+
+        MOK_MESSAGE += "Рекомендуется ЭКГ и АД мониторинг в динамике. ";    
+
+        if (drug = true) {
+            MOK_MESSAGE += "В зависимости от результатов необходимо сделать следующее: Если рзультат ЭКГ положительный: рекомендуется подбор адекватной терапии. Если результат ЭКГ отрицательный: рекомендуется развернутая схема диагностики сердечно-сосудистой системы.";
+        }
+        else {
+            MOK_MESSAGE += "В зависимости от результатов необходимо сделать следующее: Если результат ЭКГ положительный: рекомендуется коррекция терапии. Если результат ЭКГ отрицательный: рекомендуется развернутая схема диагностики сердечно-сосудистой системы.";
+        }
+        document.querySelector("#bot3").innerHTML = MOK_MESSAGE;
+    }
+      
+    document.querySelector("#top1").style.opacity = 1;
+    document.querySelector("#bot1").style.opacity = 1;
+    document.querySelector("#top2").style.opacity = 1;
+    document.querySelector("#bot2").style.opacity = 1;
+    document.querySelector("#top3").style.opacity = 1;
+    document.querySelector("#bot3").style.opacity = 1;
+
+    showResults(pd, so, MOK_TEK, MOK_DOLZH, MOK_PERCENT, Tsc, Tp, IMOK, VI, BMI, OCK, DOCK, OtklOCK);
+}
+
+let showResults = function(pd, so, MOK_TEK, MOK_DOLZH, MOK_PERCENT, Tsc, Tp, IMOK, VI, BMI, OCK, DOCK, OtklOCK) {
+    document.querySelector("#res-inf").innerHTML = "Результаты вычисления по формулам";
+
+    document.querySelector("#pd").innerHTML = "Пульсовое давление: ";
+    document.querySelector("#pd-data").innerHTML = pd;
+
+    document.querySelector("#so").innerHTML = "Систолический объем: ";
+    document.querySelector("#so-data").innerHTML = so;
+
+    document.querySelector("#MT").innerHTML = "Текущий минутный объем крови: ";
+    document.querySelector("#MT-data").innerHTML = MOK_TEK;
+
+    document.querySelector("#MD").innerHTML = "Должный минутный объем крови: ";
+    document.querySelector("#MD-data").innerHTML = MOK_DOLZH;
+
+    document.querySelector("#MP").innerHTML = "Процентный минутный объем крови: ";
+    document.querySelector("#MP-data").innerHTML = MOK_PERCENT;
+
+    document.querySelector("#Tsc").innerHTML = "Период сердечного цикла: ";
+    document.querySelector("#Tsc-data").innerHTML = Tsc;
+
+    document.querySelector("#Tp").innerHTML = "Период изгнания: ";
+    document.querySelector("#Tp-data").innerHTML = Tp;
+
+    document.querySelector("#IMOK").innerHTML = "Индекс минутного объема крови: ";
+    document.querySelector("#IMOK-data").innerHTML = IMOK;
+
+    document.querySelector("#VI").innerHTML = "Вегетативный индекс Кердо: ";
+    document.querySelector("#VI-data").innerHTML = VI;
+
+    document.querySelector("#BMI").innerHTML = "Индекс массы тела: ";
+    document.querySelector("#BMI-data").innerHTML = BMI;
+
+    document.querySelector("#OCK").innerHTML = "Объем циркулирующей крови: ";
+    document.querySelector("#OCK-data").innerHTML = OCK;
+
+    document.querySelector("#DOCK").innerHTML = "Должный объем циркулирующей крови: ";
+    document.querySelector("#DOCK-data").innerHTML = DOCK;
+
+    document.querySelector("#OtklOCK").innerHTML = "Отклонение объема циркулирующей крови: ";
+    document.querySelector("#OtklOCK-data").innerHTML = OtklOCK;
+
+    offOnResults(true);
+}
+
+let offOnResults = function(ex) {
+    if (ex) {
+        document.querySelector(".results").style.height = "625px";
+        document.querySelector(".results").style.opacity = 1;
+        document.querySelector(".results").style.marginLeft = "auto";
+        document.querySelector(".results").style.marginRight = "auto";
+        document.querySelector(".results").style.marginBottom = "35px";
+        document.querySelector(".results").style.border = "1px solid rgb(88, 88, 88)";
+        document.querySelector(".table-results").style.display = "table";
+    }
+    else {
+        document.querySelector(".results").style.height = 0;
+        document.querySelector(".results").style.opacity = 0;
+        setTimeout(temp, 1000);
+    }
+}
+
+let temp = function() {
+    document.querySelector(".results").style.margin = 0;
+    document.querySelector(".results").style.border = 0;
+    document.querySelector(".table-results").style.display = "none";
+    
 }
