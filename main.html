@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blood Circulation</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="main.css" rel="stylesheet">
+        <link href="data.css" rel="stylesheet">
+    </head>
+    <body class="body-style">
+        <div class="main-block">
+            <div class="top-menu">
+                <h1 class="name">Blood Circulation</h1>
+            </div>
+            <div class="info-block">
+                <div class="div-info">
+                    <h1 class="info">
+                        Сервис предназначен для оценки кровообращения человека.
+                    </h1>
+                    <h1 class="info">
+                        Предлагаемые рекомендации носят ознакомительный характер и требуют согласования  со специалистом.
+                    </h1>
+                </div>
+            </div>
+            <div class="data-block">
+                <div id="bg" class="bg-img">
+                    <table class="inp-table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input id="sd" type="text"  class="one-inp  color" placeholder="Систолическое давление">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-padding-up-down">
+                                    <input id="dd" type="text" class="one-inp  color" placeholder="Диастолическое давление">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input id="bpm" type="text" class="one-inp  color" placeholder="Частота сердечных сокращений">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-padding-up-down">
+                                    <input id="weight" type="text" class="dual-inp  color" placeholder="Вес">
+                                    <input id="age" type="text" class="dual-inp right-dual-imp  color" placeholder="Возраст">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input id="height" type="text" class="dual-inp  color" placeholder="Рост">
+                                    <select id="sex" class="dual-inp right-dual-imp pointer color">
+                                        <option value="none">Пол</option>
+                                        <option value="man">Мужской</option>
+                                        <option value="woman">Женский</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-padding-up-down">
+                                    <div class="last-inp1-div">
+                                        <h1 class="last-inp1">
+                                            Прием препаратов, снижающих артериальное даввление
+                                        </h1>
+                                    </div>
+                                    <div class="last-inp2 right-dual-imp">
+                                        <label class="label">
+                                            <input id="drug" type="checkbox" class="checkbox">
+                                            <span class="fake-checkbox"></span>
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="error" class="error-div">
+                                    <a class="error-message">
+                                        Введены не все значения или введены неверно
+                                    </a>
+                                </td>
+                                <td>
+                                    <button id="but" class="enter-inp" onclick="performData()">Ввод</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="data-plate">
+                        <div class="cell otkl">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="data-td">
+                                            <h1 id="top1" class="text-block"></h1>
+                                            <h1 id="bot1" class="text-block"></h1>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cell ind">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="data-td">
+                                            <h1 id="top2" class="text-block"></h1>
+                                            <h1 id="bot2" class="text-block"></h1>        
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cell mok">
+                            <table class="mok-table">
+                                <tbody>
+                                    <tr>
+                                        <td class="mok-td">
+                                            <h1 id="top3" class="text-block mok-font-size"></h1>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h1 id="bot31" class="text-block mok-font-size"></h1>
+                                            <h1 id="bot32" class="text-block mok-font-size"></h1>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="main.js"></script>
+    </body>
+</html>

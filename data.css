@@ -1,0 +1,54 @@
+#data-plate {
+    width: 1000px;
+    height: 540px;
+    background-color: rgba(238, 238, 238, 0.384);
+    border-radius: 6px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    transition: 1s;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.cell {
+    margin-left: 12px;
+    margin-right: 12px;
+    background-color: white;
+    border-radius: 6px;
+    margin-top: 12px;
+    display: grid;
+    align-content: center;
+}
+.otkl {
+    height: 140px;
+}
+.ind {
+    height: 80px;
+}
+.mok {
+    height: 272px;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+.text-block {
+    margin: 0;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    transition: 0.5s;
+    text-align: center;
+}
+.data-td {
+    flex-direction: column;
+}
+.mok-td {
+    justify-content: center;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+}
+.mok-font-size {
+    font-size: 26px;
+}
+.mok-table {
+    height: 272px;
+}
