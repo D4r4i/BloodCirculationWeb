@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blood Circulation</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/images/heart.png" rel="shortcut icon">
+        <link href="/css/calc_main.css" rel="stylesheet">
+        <link href="/css/calc_data.css" rel="stylesheet">
+        <link href="/css/bottomTab.css" rel="stylesheet">
+        <link rel="stylesheet" href="/css/sing.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script>
+			$(document).ready(function() {
+    			$.ajax({
+        			url: 'bottomTab.html',
+        			type: 'GET',
+        			dataType: 'html',
+					success: function(data) {
+						$('#bottom').html(data);
+        			},
+        			error: function(jqXHR, textStatus, errorThrown) {
+            			console.error('Error loading admin menu:', textStatus, errorThrown);
+        			}
+    			});
+			});
+        </script>
+    </head>
+    <body class="body-style sing-body">
+        <div class="reg-name">Blood Circulation</div>
+        <div class="reg-area">
+            <div class="reg-area-container">
+                <form action="login.php" method="post">
+                    <table class="inp-table no-marg">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h1 class="auth-title">Авторизация</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="one-inp" type="email" placeholder="Электронный адрес" autocomplete="off" name="email">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-padding-up-down">
+                                    <input class="one-inp" type="password" placeholder="Пароль" autocomplete="off" name="password">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="submit" class="enter-inp">Войти</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <div class="vline"></div>
+                <form action="/php/registration.php" method="post">
+                    <table class="inp-table no-marg">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h1 class="auth-title">Регистрация</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="one-inp" type="text" placeholder="Имя" autocomplete="off" name="name">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-padding-up-down">
+                                    <input class="one-inp" type="email" placeholder="Электронный адрес" autocomplete="off" name="email">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="one-inp" type="password" placeholder="Пароль" autocomplete="off" name="password">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-padding-up-down">
+                                    <input class="one-inp" type="password" placeholder="Повторите пароль" autocomplete="off" name="repeat-password">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="submit" class="enter-inp enter-padding">Зарегистрироваться</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <label class="back-to-home-div">
+            <div class="back-to-home-ico-div">
+                <img class="back-to-home-ico" src="/images/back-arrow.png">    
+            </div>
+            <button class="back-to-home">Вернуться на главную страницу</button>
+        </label>
+        <div id="bottom"></div>
+    </body>
+</html> 

@@ -1,20 +1,58 @@
 <!DOCTYPE html>
+<!-- 
+#5D001E
+#E3E2DF
+#E3AFBC
+#9A1750
+#EE4C7C
+-->
 <html>
     <head>
         <title>Blood Circulation</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="images/pageIco.png" rel="shortcut icon">
-        <link href="css/main.css" rel="stylesheet">
-        <link href="css/data.css" rel="stylesheet">
-        <link href="css/bottomTab.css" rel="stylesheet">
+        <link href="/images/heart.png" rel="shortcut icon">
+        <link href="/css/calc_main.css" rel="stylesheet">
+        <link href="/css/calc_data.css" rel="stylesheet">
+        <link href="/css/bottomTab.css" rel="stylesheet">
+        <link rel="stylesheet" href="/css/topTab.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script>
+			$(document).ready(function() {
+    			$.ajax({
+        			url: 'bottomTab.html',
+        			type: 'GET',
+        			dataType: 'html',
+					success: function(data) {
+						$('#bottom').html(data);
+        			},
+        			error: function(jqXHR, textStatus, errorThrown) {
+            			console.error('Error loading admin menu:', textStatus, errorThrown);
+        			}
+    			});
+			});
+            $(document).ready(function() {
+    			$.ajax({
+        			url: 'topTab.html',
+        			type: 'GET',
+        			dataType: 'html',
+					success: function(data) {
+						$('#top').html(data);
+        			},
+        			error: function(jqXHR, textStatus, errorThrown) {
+            			console.error('Error loading admin menu:', textStatus, errorThrown);
+        			}
+    			});
+			});
+		</script>
     </head>
     <body class="body-style">
         <div class="main-block">
-            <div class="top-menu">
+            <div id="top"></div>
+            <!-- <div class="top-menu">
                 <h1 class="name">Blood Circulation</h1>
-            </div>
-            <div class="info-block">
+            </div> -->
+            <!-- <div class="info-block">
                 <div class="div-info">
                     <h1 class="info">
                         Сервис предназначен для оценки кровообращения человека.
@@ -23,35 +61,40 @@
                         Предлагаемые рекомендации носят ознакомительный характер и требуют согласования  со специалистом.
                     </h1>
                 </div>
+            </div> -->
+            <div class="line"></div>
+            <div class="insert-ask">
+                <h1 class="ask">Введите измеренные значения артериального давления и свои данные</h1>
             </div>
             <div class="data-block">
-                <div id="bg" class="bg-img">
+                <div id="bg" class="table-div">
                     <table class="inp-table">
                         <tbody>
                             <tr>
+                                <!-- info="Значение систолического артериального давления должно быть от 90 до 250 и измеряться в мм. рт. ст." -->
+                                <td info="мм. рт. ст.">
+                                    <input id="sd" type="text"  class="one-inp  color" placeholder="Систолическое давление (САД)" autocomplete="off">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-padding-up-down" info2="мм. рт. ст.">
+                                    <input id="dd" type="text" class="one-inp  color" placeholder="Диастолическое давление (ДАД)" autocomplete="off">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td info3="Количество ударов в минуту">
+                                    <input id="bpm" type="text" class="one-inp  color" placeholder="Частота сердечных сокращений" autocomplete="off">
+                                </td>
+                            </tr>
+                            <tr info2="Полных лет">
+                                <td class="td-padding-up-down" info4="Килограммы">
+                                    <input id="weight" type="text" class="dual-inp  color" placeholder="Вес" autocomplete="off">
+                                    <input id="age" type="text" class="dual-inp right-dual-imp  color" placeholder="Возраст" autocomplete="off">
+                                </td>
+                            </tr>
+                            <tr info5="Сантимерты">
                                 <td>
-                                    <input id="sd" type="text"  class="one-inp  color" placeholder="Систолическое давление (САД)">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="td-padding-up-down">
-                                    <input id="dd" type="text" class="one-inp  color" placeholder="Диастолическое давление (ДАД)">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="bpm" type="text" class="one-inp  color" placeholder="Частота сердечных сокращений">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="td-padding-up-down">
-                                    <input id="weight" type="text" class="dual-inp  color" placeholder="Вес">
-                                    <input id="age" type="text" class="dual-inp right-dual-imp  color" placeholder="Возраст">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input id="height" type="text" class="dual-inp  color" placeholder="Рост">
+                                    <input id="height" type="text" class="dual-inp  color" placeholder="Рост" autocomplete="off">
                                     <select id="sex" class="dual-inp right-dual-imp pointer color">
                                         <option value="none">Пол</option>
                                         <option value="man">Мужской</option>
@@ -82,12 +125,12 @@
                                 </td>
                                 <td>
                                     <button id="but" class="enter-inp" onclick="performData()">Ввод</button>
-                                    <button id="but" class="enter-inp enter-inp2" onclick="show()">Ввод</button>
+                                    <button id="but" class="enter-inp enter-inp2" onclick="secondBut()">Ввод</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <div id="data-plate">
+                    <!-- <div id="data-plate">
                         <div class="cell otkl">
                             <table>
                                 <tbody>
@@ -116,97 +159,108 @@
                             <h1 id="top3" class="text-block mok-font-size"></h1>
                             <h1 id="bot3" class="text-block mok-font-size"></h1>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
+            <div class="line"></div>
+            <div class="res-text-div">
+                <h1 id="top1" class="top-top-text">Отклонение объема циркулирующей крови:</h1>
+                <h1 id="bot1" class="bot-text"></h1>
+                <h1 id="top2" class="top-text">Индекс массы тела:</h1>
+                <h1 id="bot2" class="bot-text"></h1>
+                <h1 id="top3" class="top-text">Минутный объем крови:</h1>
+                <h1 id="bot3" class="bot-bot-text bot-text"></h1>
+            </div>
+            <div class="line"></div>
             <div class="results">
                 <table class="table-results">
                     <tr>
-                        <td class="td-data">
-                            <h1 id="res-inf" class="res-inf"></h1>
+                        <td class="td-data-top">
+                            <h1 id="res-inf" class="res-inf">Результаты вычисления по формулам</h1>
                         </td>
                     </tr>
                     <tr>
                         <td class="td-data">
-                            <h1 id="pd" class="res-inf"></h1>
+                            <h1 id="pd" class="res-inf">Пульсовое давление:</h1>
                             <h1 id="pd-data" class="res-inf right-data"></h1>
                         </td>
                     </tr>
                     <tr>
                         <td class="td-data">
-                            <h1 id="so" class="res-inf"></h1>
+                            <h1 id="so" class="res-inf">Систолический объем:</h1>
                             <h1 id="so-data" class="res-inf right-data"></h1>
                         </td>
                     </tr>
                     <tr>
                         <td class="td-data">
-                            <h1 id="MT" class="res-inf"></h1>
+                            <h1 id="MT" class="res-inf">Текущий минутный объем крови:</h1>
                             <h1 id="MT-data" class="res-inf right-data"></h1>
                         </td>
                     </tr>
                     <tr>
                         <td class="td-data">
-                            <h1 id="MD" class="res-inf"></h1>
+                            <h1 id="MD" class="res-inf">Должный минутный объем крови:</h1>
                             <h1 id="MD-data" class="res-inf right-data"></h1>
                         </td>
                     </tr>
                     <tr>
                         <td class="td-data">
-                            <h1 id="MP" class="res-inf"></h1>
+                            <h1 id="MP" class="res-inf">Процентный минутный объем крови:</h1>
                             <h1 id="MP-data" class="res-inf right-data"></h1>
                         </td>
                     </tr>
                     <tr>
                         <td class="td-data">
-                            <h1 id="Tsc" class="res-inf"></h1>
+                            <h1 id="Tsc" class="res-inf">Период сердечного цикла:</h1>
                             <h1 id="Tsc-data" class="res-inf right-data"></h1>
                         </td>
                     </tr>
                     <tr>
                         <td class="td-data">
-                            <h1 id="Tp" class="res-inf"></h1>
+                            <h1 id="Tp" class="res-inf">Период изгнания:</h1>
                             <h1 id="Tp-data" class="res-inf right-data"></h1>
                         </td>
                     </tr>
                     <tr>
                         <td class="td-data">
-                            <h1 id="IMOK" class="res-inf"></h1>
+                            <h1 id="IMOK" class="res-inf">Индекс минутного объема крови:</h1>
                             <h1 id="IMOK-data" class="res-inf right-data"></h1>
                         </td>
                     </tr>
                     <tr>
                         <td class="td-data">
-                            <h1 id="VI" class="res-inf"></h1>
+                            <h1 id="VI" class="res-inf">Вегетативный индекс Кердо:</h1>
                             <h1 id="VI-data" class="res-inf right-data"></h1>
                         </td>
                     </tr>
                     <tr>
                         <td class="td-data">
-                            <h1 id="BMI" class="res-inf"></h1>
+                            <h1 id="BMI" class="res-inf">Индекс массы тела:</h1>
                             <h1 id="BMI-data" class="res-inf right-data"></h1>
                         </td>
                     </tr>
                     <tr>
                         <td class="td-data">
-                            <h1 id="OCK" class="res-inf"></h1>
+                            <h1 id="OCK" class="res-inf">Объем циркулирующей крови:</h1>
                             <h1 id="OCK-data" class="res-inf right-data"></h1>
                         </td>
                     </tr>
                     <tr>
                         <td class="td-data">
-                            <h1 id="DOCK" class="res-inf"></h1>
+                            <h1 id="DOCK" class="res-inf">Должный объем циркулирующей крови:</h1>
                             <h1 id="DOCK-data" class="res-inf right-data"></h1>
                         </td>
                     </tr>
                     <tr>
-                        <td class="td-data-bot">
-                            <h1 id="OtklOCK" class="res-inf"></h1>
+                        <td class="td-data td-data-bot">
+                            <h1 id="OtklOCK" class="res-inf">Отклонение объема циркулирующей крови:</h1>
                             <h1 id="OtklOCK-data" class="res-inf right-data"></h1>
                         </td>
                     </tr>
                 </table>
             </div>
-            <div class="bottom-info">
+            <div id="bottom"></div>
+            <!-- <div class="bottom-info">
                 <div class="mail">
                     <div>Support: tsvetkova57@gmail.com</div>
                 </div>
@@ -214,8 +268,8 @@
                     <img src="images/tgIco.png">
                     <a href="https://t.me/BloodCirculationBot" class="bot-link">Blood circulation bot</a>
                 </div>
-            </div>
+            </div> -->
         </div>
-        <script src="main.js"></script>
+        <script src="/js/main.js"></script>
     </body>
 </html>

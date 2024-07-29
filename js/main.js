@@ -14,10 +14,76 @@ let performData = function() {
         document.querySelector('.enter-inp2').style.display = "inline-block";
         document.querySelector('.enter-inp').style.marginRight = "6px";
 
-        moveTable();
-        if (isClicked) {
-            setTimeout(show, 1100);
+        if (!isClicked) {
+            document.querySelector('.enter-inp').textContent = 'Сброс';
+            isClicked = true;
+            show();
         }
+        else {
+            document.querySelector('#but').textContent = 'Ввод';
+
+            document.getElementById("sd").value = '';
+            document.getElementById("dd").value = '';
+            document.getElementById("bpm").value = '';
+            document.getElementById("weight").value = '';
+            document.getElementById("age").value = '';
+            document.getElementById("height").value = '';
+            document.getElementById("sex").value = "none";
+            document.getElementById("drug").checked = false;
+
+            document.querySelector("#bot1").innerHTML = "";
+            document.querySelector("#bot2").innerHTML = "";
+            document.querySelector("#bot3").innerHTML = "";
+
+            document.querySelector("#top1").innerHTML = "Отклонение объема циркулирующей крови:";
+            document.querySelector("#top2").innerHTML = "Индекс массы тела:";
+            document.querySelector("#top3").innerHTML = "Минутный объем крови:";
+
+            document.querySelector('.enter-inp2').style.display = "none";
+            document.querySelector('.enter-inp').style.marginRight = "auto";
+
+            document.querySelector("#pd-data").innerHTML = "";
+            document.querySelector("#so-data").innerHTML = "";
+            document.querySelector("#MT-data").innerHTML = "";
+            document.querySelector("#MD-data").innerHTML = "";
+            document.querySelector("#MP-data").innerHTML = "";
+            document.querySelector("#Tsc-data").innerHTML = "";
+            document.querySelector("#Tp-data").innerHTML = "";
+            document.querySelector("#IMOK-data").innerHTML = "";
+            document.querySelector("#VI-data").innerHTML = "";
+            document.querySelector("#BMI-data").innerHTML = "";
+            document.querySelector("#OCK-data").innerHTML = "";
+            document.querySelector("#DOCK-data").innerHTML = "";
+            document.querySelector("#OtklOCK-data").innerHTML = "";
+
+            isClicked = false;
+        }
+        // moveTable();
+        // if (isClicked) {
+        //     setTimeout(show, 1100);
+        // }
+    }
+    else {
+        document.querySelector('#error').style.height = "77px";
+        document.querySelector('#error').style.transition = "0.5s";
+        document.querySelector('#error').style.marginBottom = "12px";
+        document.querySelector('.error-message').style.height = "fit-content";
+        document.querySelector('.error-message').style.transition = "3s";
+        document.querySelector('.error-message').style.opacity = 1;
+        
+    }
+}
+
+let secondBut = function() {
+    if (variablesExam()) {
+        for (let i = 0; i < inputs.length; i++) {
+            document.querySelector(inputs[i]).style.background = "#ffffff";
+        }
+        document.querySelector('#error').style.height = 0;
+        document.querySelector('#error').style.margin = 0;
+        document.querySelector('.error-message').style.transition = "0.2s";
+        document.querySelector('.error-message').style.opacity = 0;
+        show();
     }
     else {
         document.querySelector('#error').style.height = "77px";
@@ -26,7 +92,6 @@ let performData = function() {
         document.querySelector('.error-message').style.height = "77px";
         document.querySelector('.error-message').style.transition = "3s";
         document.querySelector('.error-message').style.opacity = 1;
-        
     }
 }
 
@@ -95,54 +160,54 @@ let variablesExam = function() {
     }
 
     for (let i = 0; i < errors.length; i++) {
-        document.querySelector(errors[i]).style.background = "#ffc6c6";
+        document.querySelector(errors[i]).style.background = "#f7dae2";
     }
     return exam
 }
 
-let moveTable = function() {
-    if(!isClicked){
-        document.querySelector('#but').textContent = 'Сброс';
-        document.querySelector('#but').style.background = "#ffc6c6";
-        document.querySelector('#data-plate').style.width = "1000px";
-        isClicked = true;
-    }
-    else{
-        document.querySelector('#but').textContent = 'Ввод';
-        document.querySelector('#but').style.background = "#78b4f8";
-        document.querySelector('#data-plate').style.width = "0";
+// let moveTable = function() {
+//     if(!isClicked){
+//         document.querySelector('#but').textContent = 'Сброс';
+//         document.querySelector('#but').style.background = "#ffc6c6";
+//         document.querySelector('#data-plate').style.width = "1000px";
+//         isClicked = true;
+//     }
+//     else{
+//         document.querySelector('#but').textContent = 'Ввод';
+//         document.querySelector('#but').style.background = "#78b4f8";
+//         document.querySelector('#data-plate').style.width = "0";
 
-        document.getElementById("sd").value = '';
-        document.getElementById("dd").value = '';
-        document.getElementById("bpm").value = '';
-        document.getElementById("weight").value = '';
-        document.getElementById("age").value = '';
-        document.getElementById("height").value = '';
-        document.getElementById("sex").value = "none";
-        document.getElementById("drug").checked = false;
+//         document.getElementById("sd").value = '';
+//         document.getElementById("dd").value = '';
+//         document.getElementById("bpm").value = '';
+//         document.getElementById("weight").value = '';
+//         document.getElementById("age").value = '';
+//         document.getElementById("height").value = '';
+//         document.getElementById("sex").value = "none";
+//         document.getElementById("drug").checked = false;
 
-        document.querySelector("#top1").style.opacity = 0;
-        document.querySelector("#bot1").style.opacity = 0;
-        document.querySelector("#top2").style.opacity = 0;
-        document.querySelector("#bot2").style.opacity = 0;
-        document.querySelector("#top3").style.opacity = 0;
-        document.querySelector("#bot3").style.opacity = 0;       
+//         document.querySelector("#top1").style.opacity = 0;
+//         document.querySelector("#bot1").style.opacity = 0;
+//         document.querySelector("#top2").style.opacity = 0;
+//         document.querySelector("#bot2").style.opacity = 0;
+//         document.querySelector("#top3").style.opacity = 0;
+//         document.querySelector("#bot3").style.opacity = 0;       
 
-        setTimeout(offOnResults(false), 1000);
+//         setTimeout(offOnResults(false), 1000);
 
-        document.querySelector("#top1").innerHTML = "";
-        document.querySelector("#bot1").innerHTML = "";
-        document.querySelector("#top2").innerHTML = "";
-        document.querySelector("#bot2").innerHTML = "";
-        document.querySelector("#top3").innerHTML = "";
-        document.querySelector("#bot3").innerHTML = "";
+//         document.querySelector("#top1").innerHTML = "";
+//         document.querySelector("#bot1").innerHTML = "";
+//         document.querySelector("#top2").innerHTML = "";
+//         document.querySelector("#bot2").innerHTML = "";
+//         document.querySelector("#top3").innerHTML = "";
+//         document.querySelector("#bot3").innerHTML = "";
 
-        document.querySelector('.enter-inp2').style.display = "none";
-        document.querySelector('.enter-inp').style.marginRight = "auto";
+//         document.querySelector('.enter-inp2').style.display = "none";
+//         document.querySelector('.enter-inp').style.marginRight = "auto";
 
-        isClicked = false;
-    }
-}
+//         isClicked = false;
+//     }
+// }
 
 let show = function() {
     sd = parseInt(document.getElementById("sd").value);
@@ -270,12 +335,12 @@ let show = function() {
         document.querySelector("#bot3").innerHTML = MOK_MESSAGE;
     }
       
-    document.querySelector("#top1").style.opacity = 1;
-    document.querySelector("#bot1").style.opacity = 1;
-    document.querySelector("#top2").style.opacity = 1;
-    document.querySelector("#bot2").style.opacity = 1;
-    document.querySelector("#top3").style.opacity = 1;
-    document.querySelector("#bot3").style.opacity = 1;
+    // document.querySelector("#top1").style.opacity = 1;
+    // document.querySelector("#bot1").style.opacity = 1;
+    // document.querySelector("#top2").style.opacity = 1;
+    // document.querySelector("#bot2").style.opacity = 1;
+    // document.querySelector("#top3").style.opacity = 1;
+    // document.querySelector("#bot3").style.opacity = 1;
 
     showResults(pd, so, MOK_TEK, MOK_DOLZH, MOK_PERCENT, Tsc, Tp, IMOK, VI, BMI, OCK, DOCK, OtklOCK);
 }
@@ -322,29 +387,29 @@ let showResults = function(pd, so, MOK_TEK, MOK_DOLZH, MOK_PERCENT, Tsc, Tp, IMO
     document.querySelector("#OtklOCK").innerHTML = "Отклонение объема циркулирующей крови: ";
     document.querySelector("#OtklOCK-data").innerHTML = OtklOCK;
 
-    offOnResults(true);
+    // offOnResults(true);
 }
 
-let offOnResults = function(ex) {
-    if (ex) {
-        document.querySelector(".results").style.height = "625px";
-        document.querySelector(".results").style.opacity = 1;
-        document.querySelector(".results").style.marginLeft = "auto";
-        document.querySelector(".results").style.marginRight = "auto";
-        document.querySelector(".results").style.marginBottom = "35px";
-        document.querySelector(".results").style.border = "1px solid rgb(88, 88, 88)";
-        document.querySelector(".table-results").style.display = "table";
-    }
-    else {
-        document.querySelector(".results").style.height = 0;
-        document.querySelector(".results").style.opacity = 0;
-        setTimeout(temp, 1000);
-    }
-}
+// let offOnResults = function(ex) {
+//     if (ex) {
+//         document.querySelector(".results").style.height = "625px";
+//         document.querySelector(".results").style.opacity = 1;
+//         document.querySelector(".results").style.marginLeft = "auto";
+//         document.querySelector(".results").style.marginRight = "auto";
+//         document.querySelector(".results").style.marginBottom = "35px";
+//         document.querySelector(".results").style.border = "1px solid rgb(88, 88, 88)";
+//         document.querySelector(".table-results").style.display = "table";
+//     }
+//     else {
+//         document.querySelector(".results").style.height = 0;
+//         document.querySelector(".results").style.opacity = 0;
+//         setTimeout(temp, 1000);
+//     }
+// }
 
-let temp = function() {
-    document.querySelector(".results").style.margin = 0;
-    document.querySelector(".results").style.border = 0;
-    document.querySelector(".table-results").style.display = "none";
+// let temp = function() {
+//     document.querySelector(".results").style.margin = 0;
+//     document.querySelector(".results").style.border = 0;
+//     document.querySelector(".table-results").style.display = "none";
     
-}
+// }
