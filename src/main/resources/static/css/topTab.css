@@ -1,0 +1,102 @@
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap);
+.top-tab {
+    height: fit-content;
+    display: flex;
+    padding-top: 10px;
+    flex-wrap: wrap;
+    /*background: linear-gradient(to right, red, purple);*/
+}
+.img_name {
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 310px;
+    margin-left: 10px;
+}
+.heart {
+    width: 40px;
+}
+.blcirc {
+    font-family: Montserrat, sans-serif;
+    font-weight: 200;
+    font-size: 32px;
+    margin: 0;
+    text-decoration: none;
+    color: black;
+}
+.menu-div {
+    align-content: flex-end;
+    margin-left: auto;
+    margin-right: auto;
+}
+.menu-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 490px;
+    justify-content: space-between;
+}
+.but {
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    transition: 0.1s;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+#m1 {
+    transition: 0.1s;
+}
+#m2 {
+    transition: 0.1s;
+}
+#m3 {
+    transition: 0.1s;
+}
+#m1:hover {
+    opacity: 0.5;
+}
+#m2:hover {
+    opacity: 0.5;
+}
+#m3:hover {
+    opacity: 0.5;
+}
+.top-but:active {
+    color: #c20440;
+    transform: scaleY(1.2);
+}
+
+.enter-but {
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    margin-left: 208px;
+    margin-right: 10px;
+    justify-content: center;
+    background-color: #DD0D4B;
+    width: 90px;
+    height: 38px;
+    border: 1px solid #DD0D4B;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.enter-but:hover {
+    background-color: white;
+    color: #DD0D4B;
+}
+.enter-but:active {
+    color: white;
+
+    transition: 0.2s;
+    background-color: #DD0D4B;
+}

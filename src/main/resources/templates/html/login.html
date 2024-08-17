@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blood Circulation</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/images/heart.png" rel="shortcut icon" th:href="@{/images/heart.png}">
+        <link href="/css/calc_main.css" rel="stylesheet" th:href="@{/css/calc_main.css}">
+        <link href="/css/calc_data.css" rel="stylesheet" th:href="@{/css/calc_data.css}">
+        <link href="/css/bottomTab.css" rel="stylesheet" th:href="@{/css/bottomTab.css}">
+        <link rel="stylesheet" href="/css/topTab.css" th:href="@{/css/topTab.css}">
+        <link rel="stylesheet" href="/css/sign.css" th:href="@{/css/sign.css}">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    </head>
+    <body class="body-style sing-body">
+        <div class="reg-name">Blood Circulation</div>
+        <div class="reg-area">
+            <div class="reg-area-container">
+                <form action="/login" method="post">
+                    <table class="inp-table no-marg">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h1 class="auth-title">Авторизация</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="one-inp" id="email" type="email" placeholder="Электронный адрес" name="username">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-padding-up-down">
+                                    <input class="one-inp" id="password" type="password" placeholder="Пароль" autocomplete="off" name="password">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="error" class="error-div">
+                                    <h1 id="reg-error" class="error-message"></h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="enter-inp" onclick="logBut()">Войти</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="noyet">
+                                    <label class="ent-reg">Еще нет аккаунта? <a class="ent-reg link" href="/registration">Зарегистрироваться</a></label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <label class="back-to-home-div">
+            <img class="back-to-home-ico" src="/images/back-arrow.png">
+            <a class="back-to-home" href="/">Вернуться на главную страницу</a>
+        </label>
+
+        <div th:insert="~{/html/bottomTab :: bottomTab}"></div>
+
+        <script type="text/javascript" th:src="@{/js/login.js}"></script>
+    </body>
+</html> 

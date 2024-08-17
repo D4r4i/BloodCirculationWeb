@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Blood Circulation</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/images/heart.png" rel="shortcut icon" th:href="@{/images/heart.png}">
+        <link href="/css/calc_main.css" rel="stylesheet" th:href="@{/css/calc_main.css}">
+        <link href="/css/calc_data.css" rel="stylesheet" th:href="@{/css/calc_data.css}">
+        <link href="/css/bottomTab.css" rel="stylesheet" th:href="@{/css/bottomTab.css}">
+        <link rel="stylesheet" href="/css/topTab.css" th:href="@{/css/topTab.css}">
+    </head>
+    <body class="body-style" id="calc">
+        <div class="main-block">
+
+            <div th:insert="~{/html/topTab :: topTab}"></div>
+
+            <div class="insert-ask">
+                <h1 class="ask">Введите измеренные значения артериального давления и свои данные</h1>
+            </div>
+            <div class="data-block">
+                <div id="bg" class="table-div">
+                    <table class="inp-table">
+                        <tbody>
+                            <tr>
+                                <td info="мм. рт. ст.">
+                                    <input id="sd" type="text"  class="one-inp  color" placeholder="Систолическое давление (САД)" autocomplete="off">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-padding-up-down" info2="мм. рт. ст.">
+                                    <input id="dd" type="text" class="one-inp  color" placeholder="Диастолическое давление (ДАД)" autocomplete="off">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td info3="Количество ударов в минуту">
+                                    <input id="bpm" type="text" class="one-inp  color" placeholder="Частота сердечных сокращений" autocomplete="off">
+                                </td>
+                            </tr>
+                            <tr info2="Полных лет">
+                                <td class="td-padding-up-down" info4="Килограммы">
+                                    <input id="weight" type="text" class="dual-inp  color" placeholder="Вес" autocomplete="off">
+                                    <input id="age" type="text" class="dual-inp right-dual-imp  color" placeholder="Возраст" autocomplete="off">
+                                </td>
+                            </tr>
+                            <tr info5="Сантимерты">
+                                <td>
+                                    <input id="height" type="text" class="dual-inp  color" placeholder="Рост" autocomplete="off">
+                                    <select id="sex" class="dual-inp right-dual-imp pointer color select">
+                                        <option disabled value="none">Пол</option>
+                                        <option value="man">Мужской</option>
+                                        <option value="woman">Женский</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-padding-up-down">
+                                    <div class="last-inp1-div">
+                                        <h1 class="last-inp1">
+                                            Прием препаратов, снижающих артериальное давление
+                                        </h1>
+                                    </div>
+                                    <div class="last-inp2 right-dual-imp">
+                                        <label class="label">
+                                            <input id="drug" type="checkbox" class="checkbox">
+                                            <span class="fake-checkbox"></span>
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="error" class="error-div">
+                                    <h1 class="error-message">
+                                        Введены не все значения или введены неверно
+                                    </h1>
+                                </td>
+                                <td>
+                                    <button id="but" class="enter-inp" onclick="performData()">Ввод</button>
+                                    <button id="but1" class="enter-inp enter-inp2" onclick="secondBut()">Ввод</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="res-text-div">
+                <h1 id="top1" class="top-top-text">Отклонение объема циркулирующей крови:</h1>
+                <h1 id="bot1" class="bot-text"></h1>
+                <h1 id="top2" class="top-text">Индекс массы тела:</h1>
+                <h1 id="bot2" class="bot-text"></h1>
+                <h1 id="top3" class="top-text">Минутный объем крови:</h1>
+                <h1 id="bot3" class="bot-bot-text bot-text"></h1>
+            </div>
+            <div class="line"></div>
+            <div class="results">
+                <table class="table-results">
+                    <tr>
+                        <td class="td-data-top">
+                            <h1 id="res-inf" class="res-inf">Результаты вычисления по формулам</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-data">
+                            <h1 id="pd" class="res-inf">Пульсовое давление:</h1>
+                            <h1 id="pd-data" class="res-inf right-data"></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-data">
+                            <h1 id="so" class="res-inf">Систолический объем:</h1>
+                            <h1 id="so-data" class="res-inf right-data"></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-data">
+                            <h1 id="MT" class="res-inf">Текущий минутный объем крови:</h1>
+                            <h1 id="MT-data" class="res-inf right-data"></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-data">
+                            <h1 id="MD" class="res-inf">Должный минутный объем крови:</h1>
+                            <h1 id="MD-data" class="res-inf right-data"></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-data">
+                            <h1 id="MP" class="res-inf">Процентный минутный объем крови:</h1>
+                            <h1 id="MP-data" class="res-inf right-data"></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-data">
+                            <h1 id="Tsc" class="res-inf">Период сердечного цикла:</h1>
+                            <h1 id="Tsc-data" class="res-inf right-data"></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-data">
+                            <h1 id="Tp" class="res-inf">Период изгнания:</h1>
+                            <h1 id="Tp-data" class="res-inf right-data"></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-data">
+                            <h1 id="IMOK" class="res-inf">Индекс минутного объема крови:</h1>
+                            <h1 id="IMOK-data" class="res-inf right-data"></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-data">
+                            <h1 id="VI" class="res-inf">Вегетативный индекс Кердо:</h1>
+                            <h1 id="VI-data" class="res-inf right-data"></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-data">
+                            <h1 id="BMI" class="res-inf">Индекс массы тела:</h1>
+                            <h1 id="BMI-data" class="res-inf right-data"></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-data">
+                            <h1 id="OCK" class="res-inf">Объем циркулирующей крови:</h1>
+                            <h1 id="OCK-data" class="res-inf right-data"></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-data">
+                            <h1 id="DOCK" class="res-inf">Должный объем циркулирующей крови:</h1>
+                            <h1 id="DOCK-data" class="res-inf right-data"></h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-data td-data-bot">
+                            <h1 id="OtklOCK" class="res-inf">Отклонение объема циркулирующей крови:</h1>
+                            <h1 id="OtklOCK-data" class="res-inf right-data"></h1>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div th:insert="~{/html/bottomTab :: bottomTab}"></div>
+
+        </div>
+        <script>document.querySelector("#m2").style.borderBottom = "1px solid gray"</script>
+        <script type="text/javascript" th:src="@{/js/main.js}"></script>
+    </body>
+</html>

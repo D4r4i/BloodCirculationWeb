@@ -1,0 +1,94 @@
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap);
+.discription {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+h1{
+    margin: 0;
+}
+.disc-text {
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    text-align: center;
+    width: 90%;
+}
+
+.text-borders {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+.intro {
+    width: 70%;
+}
+.goal {
+    width: 70%;
+    margin-top: 40px;
+}
+.home-title {
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 35px;
+    background-color: #ff4d82;
+    width: fit-content;
+    padding: 0 10px;
+    margin-left: 30px;
+}
+.home-text {
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: justify;
+    line-height: 35px;
+    text-indent: 30px;
+    margin-top: 10px;
+}
+
+.sources {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 40px;
+}
+.sources-content {
+    width: 70%;
+    border: 1px solid #dd0d4b;
+    border-radius: 12px;
+    padding: 5px 10px;
+}
+
+.author-name {
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.author-theme {
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+}
+.source-title {
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.glink {
+    color: #DD0D4B;
+    transition: 0.5s;
+}
+
+.glink:hover {
+    color: #9b0935;
+}

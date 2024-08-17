@@ -1,0 +1,37 @@
+<div th:fragment="topTab">
+    <div class="top-tab">
+        <div class="img_name">
+            <img class="heart" src="/images/heart.png">
+            <a href="/" class="blcirc">Blood circulation</a>
+        </div>
+        <div class="menu-div">
+            <nav class="menu-list">
+                <a id="m1" class="top-but but" href="/">Главная</a>
+                <a id="m2" class="top-but but" href="/calc">Калькулятор</a>
+                <a id="m3" class="top-but but" href="/history">История вычислений</a>
+            </nav>
+        </div>
+        <a id="enter-exit-but" class="enter-but" href="/login">Вход</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    <script>
+        $.ajax({
+            url: '/check-auth',
+            method: 'GET',
+            success: function(response) {
+                var but = document.getElementById("enter-exit-but");
+                if (response.authenticated) {
+                    but.href = "/logout"
+                    but.innerHTML = "Выход"
+
+                } else {
+                    but.href = "/login";
+                    but.innerHTML = "Вход"
+                }
+            },
+            error: function() {
+                console.log('Failed to check authentication status');
+            }
+        });
+    </script>
+</div>

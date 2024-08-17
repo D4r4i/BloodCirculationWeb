@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blood Circulation</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/images/heart.png" rel="shortcut icon" th:href="@{/images/heart.png}">
+        <link href="/css/calc_main.css" rel="stylesheet" th:href="@{/css/calc_main.css}">
+        <link href="/css/calc_data.css" rel="stylesheet" th:href="@{/css/calc_data.css}">
+        <link href="/css/bottomTab.css" rel="stylesheet" th:href="@{/css/bottomTab.css}">
+        <link rel="stylesheet" href="/css/topTab.css" th:href="@{/css/topTab.css}">
+        <link rel="stylesheet" href="/css/history.css" th:href="@{/css/history.css}">
+    </head>
+    <body class="body-style hbody">
+
+        <div th:insert="~{/html/topTab :: topTab}"></div>
+
+        <div th:each="el : ${performHistories}" class="data-block">
+            <h1 class="day-and-time" th:text="${el.getData()}"></h1>
+            <div class="values-table">
+                <div class="left-values">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="underline">
+                                    <h1 class="text-style">Систолическое давление</h1>
+                                    <h1 class="text-style left-margin" th:text="${el.getSd()}"></h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="underline">
+                                    <h1 class="text-style">Диастолическое давление</h1>
+                                    <h1 class="text-style left-margin" th:text="${el.getDd()}"></h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="underline">
+                                    <h1 class="text-style">Частота сердечных сокращений</h1>
+                                    <h1 class="text-style left-margin" th:text="${el.getBpm()}"></h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="underline">
+                                    <h1 class="text-style">Вес</h1>
+                                    <h1 class="text-style left-margin" th:text="${el.getWeight()}"></h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="underline">
+                                    <h1 class="text-style">Возраст</h1>
+                                    <h1 class="text-style left-margin" th:text="${el.getAge()}"></h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="underline">
+                                    <h1 class="text-style">Рост</h1>
+                                    <h1 class="text-style left-margin" th:text="${el.getHeight()}"></h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="underline">
+                                    <h1 class="text-style">Пол</h1>
+                                    <h1 class="text-style left-margin" th:text="${el.getSex()}"></h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h1 class="text-style">Прием препаратов, снижающих артериальное давление</h1>
+                                    <h1 class="text-style left-margin" th:text="${el.getDrug()}"></h1>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="right-values">
+                    <h1 class="h-text-style" th:text="${el.getTop1()}"></h1>
+                    <h1 class="text-style" th:text="${el.getBot1()}"></h1>
+                    <h1 class="h-text-style" th:text="${el.getTop2()}"></h1>
+                    <h1 class="text-style" th:text="${el.getBot2()}"></h1>
+                    <h1 class="h-text-style" th:text="${el.getTop3()}"></h1>
+                    <h1 class="text-style" th:text="${el.getBot3()}"></h1>
+                </div>
+            </div>
+        </div>
+        <div class="btn-up btn-up_hide"><div class="up-ico"></div></div>
+        <h1 class="his-start">Это начало истории вычислений</h1>
+
+        <div th:insert="~{/html/bottomTab :: bottomTab}"></div>
+
+    <script type="text/javascript" th:src="@{/js/history.js}"></script>
+    <script>document.querySelector("#m3").style.borderBottom = "1px solid gray"</script>
+    </body>
+</html>
