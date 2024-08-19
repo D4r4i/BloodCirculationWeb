@@ -114,7 +114,6 @@ public class PerformHistory {
     }
 
     public String getBot1() {
-
         return bot1;
     }
 
@@ -147,12 +146,20 @@ public class PerformHistory {
     }
 
     public String getBot3() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/templates/bots/" + bot3));
+//        System.out.println(bot3);
+//        BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/templates/bots/" + bot3));
+//        String currentLine = reader.readLine();
+//        System.out.println(currentLine);
+//        reader.close();
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("templates/bots/" + bot3);
+        if (inputStream == null) {
+            throw new FileNotFoundException("Resource not found: templates/bots/" + bot3);
+        }
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String currentLine = reader.readLine();
         reader.close();
         return currentLine;
     }
-
 
     public void setBot3(String bot3) {
         this.bot3 = bot3;

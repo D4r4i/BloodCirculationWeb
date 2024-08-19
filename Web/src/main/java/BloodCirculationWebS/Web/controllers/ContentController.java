@@ -20,12 +20,12 @@ public class ContentController {
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("login", "Вход");
-        return "/html/login";
+        return "html/login";
     }
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("registration", "Регистрация");
-        return "/html/registration";
+        return "html/registration";
     }
     @GetMapping("/logout")
     public String logout(Model model) {

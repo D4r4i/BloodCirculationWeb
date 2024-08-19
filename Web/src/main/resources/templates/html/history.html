@@ -13,7 +13,7 @@
     </head>
     <body class="body-style hbody">
 
-        <div th:insert="~{/html/topTab :: topTab}"></div>
+        <div th:insert="~{html/topTab :: topTab}"></div>
 
         <div th:each="el : ${performHistories}" class="data-block">
             <h1 class="day-and-time" th:text="${el.getData()}"></h1>
@@ -85,7 +85,7 @@
         <div class="btn-up btn-up_hide"><div class="up-ico"></div></div>
         <h1 class="his-start">Это начало истории вычислений</h1>
 
-        <div th:insert="~{/html/bottomTab :: bottomTab}"></div>
+        <div th:insert="~{html/bottomTab :: bottomTab}"></div>
 
     <script type="text/javascript" th:src="@{/js/history.js}"></script>
     <script>document.querySelector("#m3").style.borderBottom = "1px solid gray"</script>
