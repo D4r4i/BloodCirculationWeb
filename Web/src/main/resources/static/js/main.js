@@ -109,12 +109,12 @@ let variablesExam = function() {
     errors = [];
     exam = true;
 
-    if (sd === '' || isNaN(sd) || 90 > parseInt(sd) || parseInt(sd) > 250){
+    if (sd === '' || isNaN(sd) || 80 > parseInt(sd) || parseInt(sd) > 250){
         errors.push("#sd")
         exam = false;
     } 
 
-    if (dd === '' || isNaN(dd) || 60 > parseInt(dd) || parseInt(dd) > 140) {
+    if (dd === '' || isNaN(dd) || 50 > parseInt(dd) || parseInt(dd) > 140) {
         errors.push("#dd")
         exam = false;
     }
