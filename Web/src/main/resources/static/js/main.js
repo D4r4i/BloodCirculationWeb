@@ -166,52 +166,82 @@ let show = function() {
     vsex = document.getElementById("sex").value;
     drug = document.getElementById("drug").checked;
     
-    pd = sd - dd  // Пульсовое давление
+    pd = sd - dd;  // Пульсовое давление
 
-    so = Math.round((90.97 + 0.54 * pd - 0.57 * dd - 0.61 * age) * 100) / 100  // Систолический объем
+    so = Math.round((90.97 + 0.54 * pd - 0.57 * dd - 0.61 * age) * 100) / 100;  // Систолический объем
 
-    MOK_TEK = Math.round((so * bpm / 1000) * 100) / 100
+    MOK_TEK = Math.round((so * bpm / 1000) * 100) / 100;
 
-    MOK_DOLZH = Math.round((0.11 * Math.pow(weight, 3 / 4)) * 100) / 100
+    MOK_DOLZH = Math.round((0.11 * Math.pow(weight, 3 / 4)) * 100) / 100;
 
-    MOK_PERCENT = Math.round((MOK_TEK / MOK_DOLZH * 100) * 100) / 100
+    MOK_PERCENT = Math.round((MOK_TEK / MOK_DOLZH * 100) * 100) / 100;
 
-    Tsc = Math.round((60 / bpm) * 100) / 100  // Период сердечного цикла
+    Tsc = Math.round((60 / bpm) * 100) / 100;  // Период сердечного цикла
 
-    Tp = Math.round((Tsc * 0.109 + 0.159) * 100) / 100  // Период изгнания
+    Tp = Math.round((Tsc * 0.109 + 0.159) * 100) / 100;  // Период изгнания
 
-    IMOK = Math.round(((sd + dd) * Tp / dd / (Tsc - Tp)) * 100) / 100  // Индекс текущего объема крови
+    IMOK = Math.round(((sd + dd) * Tp / dd / (Tsc - Tp)) * 100) / 100;  // Индекс текущего объема крови
 
-    VI = Math.round(((1 - dd / bpm) * 100) * 100) / 100  // Вегетативный индекс Кердо
+    VI = Math.round(((1 - dd / bpm) * 100) * 100) / 100;  // Вегетативный индекс Кердо
 
-    BMI = Math.round((weight / ((height / 100) ** 2)) * 100) / 100  // Индекс массы тела
+    BMI = Math.round((weight / ((height / 100) ** 2)) * 100) / 100;  // Индекс массы тела
 
-    OCK = Math.round(MOK_TEK / IMOK * 1000)  // ОЦК - Объем циркулирующей крови
+    OCK = Math.round(MOK_TEK / IMOK * 1000);  // ОЦК - Объем циркулирующей крови
+
+    OCKMASS = Math.round(OCK / weight); // Отношение ОЦК к Массе тела
+
+    OCKTEKMOK = Math.round(OCK / 1000 / MOK_TEK * 100); // Отношение ОЦК к текущему МОК
     
     if (vsex === "man") {
         DOCK = Math.round(weight * height / 2.36)  // Должный объем циркулирующей крови
+        OCKMASSPERCENT = Math.round(OCKMASS / 77 * 100);
     }
     else {
         DOCK = Math.round(weight * height / 1.838)
+        OCKMASSPERCENT = Math.round(OCKMASS / 65 * 100);
     }
     OtklOCK = Math.round((OCK / DOCK - 1) * 100)  // Отклонение ОЦК
 
+    OCKTEKMOKCOMP = 50 <= OCKTEKMOK && OCKTEKMOK <= 70;
 
-    document.querySelector("#top1").innerHTML = "Отклонение объема циркулирующей крови: " + OtklOCK + "%";
-    if (-10 <= OtklOCK && OtklOCK <= 10) {
-        document.querySelector("#bot1").innerHTML = "Нормоволемия - оптимальное кровообращение";
-    }
-    else if (OtklOCK > 10) {
-        document.querySelector("#bot1").innerHTML = "Гиперволемия";
-    }
-    else if (OtklOCK < -10) {
-        if (70 <= MOK_PERCENT && MOK_PERCENT <= 130) {
-            document.querySelector("#bot1").innerHTML = "Гиповолемия - рекомендуется наблюдение в динамике.";
+    if (OCKTEKMOKCOMP) {
+        document.querySelector("#top1").innerHTML = "Нормоциркуляторный вариант кровообращения";
+        if (OCKMASSPERCENT <= 10) {
+            document.querySelector("#bot1").style.display = "none";
         }
-        else {
-            document.querySelector("#bot1").innerHTML = "Гиповолемия - рекомендуется консультация специалиста";
+        else if (10 < OCKMASSPERCENT && OCKMASSPERCENT <= 20) {
+            document.querySelector("#bot1").innerHTML = "Компенсированное отклонение волемии";
+        }
+        else if(20 < OCKMASSPERCENT && OCKMASSPERCENT <= 30) {
+            document.querySelector("#bot1").innerHTML = "Тенденция к приспособительной централизации кровообращения";
+        }
+        else if (30 < OCKMASSPERCENT) {
+            document.querySelector("#bot1").innerHTML = "Тенденция к дефициту тканевой перфузии";
         }
     }
+    else if (OCKTEKMOKCOMP < 50) {
+        document.querySelector("#top1").innerHTML = "Гипоциркуляторный вариант кровообращения";
+        document.querySelector("#bot1").innerHTML = "Необходмо улучшение насосной функции сердца посредством уменьшения постнагрузки. Предотвращение вазоспастических реакций. Увеличение объема циркулирующей крови.";
+    }
+    else {
+        document.querySelector("#top1").innerHTML = "Гиперциркуляторный вариант кровообращения";
+        document.querySelector("#bot1").innerHTML = "Необходимо уточнение ситуации, связанной с наличием сахарного диабета, почечной недостаточности, болезни крови. Следует ослабить регуляторное симпатическое влияние на работу сердечно-сосудистой системы, уменьшить объем циркулирующей крови.";
+    }
+    // document.querySelector("#top1").innerHTML = "Отклонение объема циркулирующей крови: " + OtklOCK + "%";
+    // if (-10 <= OtklOCK && OtklOCK <= 10) {
+    //     document.querySelector("#bot1").innerHTML = "Нормоволемия - оптимальное кровообращение";
+    // }
+    // else if (OtklOCK > 10) {
+    //     document.querySelector("#bot1").innerHTML = "Гиперволемия";
+    // }
+    // else if (OtklOCK < -10) {
+    //     if (70 <= MOK_PERCENT && MOK_PERCENT <= 130) {
+    //         document.querySelector("#bot1").innerHTML = "Гиповолемия - рекомендуется наблюдение в динамике.";
+    //     }
+    //     else {
+    //         document.querySelector("#bot1").innerHTML = "Гиповолемия - рекомендуется консультация специалиста";
+    //     }
+    // }
 
 
     document.querySelector("#top2").innerHTML = "Индекс массы тела: " + BMI;
@@ -278,7 +308,7 @@ let show = function() {
 
         MOK_MESSAGE += "Рекомендуется ЭКГ и АД мониторинг в динамике. ";    
 
-        if (drug = true) {
+        if (drug === true) {
             MOK_MESSAGE += "В зависимости от результатов необходимо сделать следующее: Если рзультат ЭКГ положительный: рекомендуется подбор адекватной терапии. Если результат ЭКГ отрицательный: рекомендуется развернутая схема диагностики сердечно-сосудистой системы.";
             bot3 = "3.5";
         }
@@ -292,23 +322,25 @@ let show = function() {
         document.querySelector("#bot3").innerHTML = MOK_MESSAGE;
     }
 
-    showResults(pd, so, MOK_TEK, MOK_DOLZH, MOK_PERCENT, Tsc, Tp, IMOK, VI, BMI, OCK, DOCK, OtklOCK);
+    showResults(pd, so, MOK_TEK, MOK_DOLZH, MOK_PERCENT, Tsc, Tp, IMOK, VI, BMI, OCK, DOCK, OtklOCK, OCKMASS, OCKTEKMOK);
 }
 
-let showResults = function(pd, so, MOK_TEK, MOK_DOLZH, MOK_PERCENT, Tsc, Tp, IMOK, VI, BMI, OCK, DOCK, OtklOCK) {
-    document.querySelector("#pd-data").innerHTML = pd;
-    document.querySelector("#so-data").innerHTML = so;
-    document.querySelector("#MT-data").innerHTML = MOK_TEK;
-    document.querySelector("#MD-data").innerHTML = MOK_DOLZH;
-    document.querySelector("#MP-data").innerHTML = MOK_PERCENT;
+let showResults = function(pd, so, MOK_TEK, MOK_DOLZH, MOK_PERCENT, Tsc, Tp, IMOK, VI, BMI, OCK, DOCK, OtklOCK, OCKMASS, OCKTEKMOK) {
+    document.querySelector("#pd-data").innerHTML = pd + " мм. рт. ст.";
+    document.querySelector("#so-data").innerHTML = so + " мл";
+    document.querySelector("#MT-data").innerHTML = MOK_TEK + " литр/мин";
+    document.querySelector("#MD-data").innerHTML = MOK_DOLZH + " литр/мин";
+    document.querySelector("#MP-data").innerHTML = MOK_PERCENT + "%";
     document.querySelector("#Tsc-data").innerHTML = Tsc;
     document.querySelector("#Tp-data").innerHTML = Tp;
     document.querySelector("#IMOK-data").innerHTML = IMOK;
     document.querySelector("#VI-data").innerHTML = VI;
     document.querySelector("#BMI-data").innerHTML = BMI;
-    document.querySelector("#OCK-data").innerHTML = OCK;
-    document.querySelector("#DOCK-data").innerHTML = DOCK;
-    document.querySelector("#OtklOCK-data").innerHTML = OtklOCK;
+    document.querySelector("#OCK-data").innerHTML = OCK + " мл";
+    document.querySelector("#DOCK-data").innerHTML = DOCK + " мл";
+    document.querySelector("#OtklOCK-data").innerHTML = OtklOCK + "%";
+    document.querySelector("#OCKMASS-data").innerHTML = OCKMASS + " мл/кг";
+    document.querySelector("#OCKTEKMOK-data").innerHTML = OCKTEKMOK + "%";
 
     saveHistory();
 }
@@ -420,9 +452,3 @@ $('.select').each(function() {
     });
 });
 
-// const opt = document.querySelector('.new-select');
-// if (opt.value === 'man' || opt.value === 'woman') {
-//     // opt.style.color = "black";
-//     document.querySelector(".new-select").style.color = "black";
-// }
-// console.log(opt.text);
